@@ -1,0 +1,22 @@
+<%= form_with(model: monkey, local: true) do |form| %>
+  <% if monkey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(monkey.errors.count, "error") %> prohibited this monkey from being saved:</h2>
+
+      <ul>
+      <% monkey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :monkey_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
