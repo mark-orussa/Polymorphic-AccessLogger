@@ -2,13 +2,13 @@
 
 This application shows how to use Rails' polymorphic associations to track user access for different models.
 
-###Why is this needed?
+### Why is this needed?
 Let's say you have a bunch of models and you want to know who created and updated their records. You could add created_by and updated_by fields to each model, but this is not DRY at all. You need to use polymorphic associations. Basically, we will use one database table to track the created by and updated by information for any model.
 
-###How does it work?
+### How does it work?
 The magic is in app/module/access-logger.rb. By including this module in the cheese and monkey models we can easily insert and update the created_by and updated_by fields. We need to slightly modify our create and update actions to pass in the user information, but otherwise everything is handled automatically.
 
-###The details
+### The details
 Include the access_logger module in the model:
 ```
 class Cheese < ApplicationRecord
@@ -57,7 +57,7 @@ We pass in the user as a parameter, which gets picked up by the AccessLogger mod
 ```
  ---
  
-####Boring details
+#### Boring details
 This app uses:
 
 * Ruby version: 2.4.1
