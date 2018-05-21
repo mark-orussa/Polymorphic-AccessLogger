@@ -1,22 +1,7 @@
 class MonkeysController < ApplicationController
   before_action :set_monkey, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @monkeys = Monkey.all
-  end
-
-  def show
-  end
-
-  def new
-    @monkey = Monkey.new
-  end
-
-  def edit
-  end
-
   def create
-    # Create a new wpa activity.
     temp_monkey_params = monkey_params
     temp_monkey_params[:access_user] = User.first
     @monkey = Monkey.new temp_monkey_params
@@ -31,9 +16,26 @@ class MonkeysController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def index
+    @monkeys = Monkey.all
+  end
+
+  def new
+    @monkey = Monkey.new
+  end
+
+  def show
+  end
+
   def update
+    temp_monkey_params = monkey_params
+    temp_monkey_params[:access_user] = User.last
+    @monkey.assign_attributes temp_monkey_params
     respond_to do |format|
-      if @monkey.update(monkey_params)
+      if @monkey.save
         format.html {redirect_to @monkey, notice: 'Monkey was successfully updated.'}
         format.json {render :show, status: :ok, location: @monkey}
       else

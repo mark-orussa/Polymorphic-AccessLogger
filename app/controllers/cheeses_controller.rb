@@ -1,22 +1,7 @@
 class CheesesController < ApplicationController
   before_action :set_cheese, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @cheeses = Cheese.all
-  end
-
-  def show
-  end
-
-  def new
-    @cheese = Cheese.new
-  end
-
-  def edit
-  end
-
   def create
-    # Create a new wpa activity.
     temp_cheese_params = cheese_params
     temp_cheese_params[:access_user] = User.first
     @cheese = Cheese.new temp_cheese_params
@@ -31,27 +16,40 @@ class CheesesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /cheeses/1
-  # PATCH/PUT /cheeses/1.json
-  def update
+  def destroy
+    @cheese.destroy
     respond_to do |format|
-      if @cheese.update(cheese_params)
+      format.html {redirect_to cheeses_url, notice: 'Cheese was successfully destroyed.'}
+      format.json {head :no_content}
+    end
+  end
+
+  def edit
+  end
+
+  def index
+    @cheeses = Cheese.all
+  end
+
+  def new
+    @cheese = Cheese.new
+  end
+
+  def show
+  end
+
+  def update
+    temp_cheese_params = cheese_params
+    temp_cheese_params[:access_user] = User.last
+    @cheese.assign_attributes temp_cheese_params
+    respond_to do |format|
+      if @cheese.save
         format.html {redirect_to @cheese, notice: 'Cheese was successfully updated.'}
         format.json {render :show, status: :ok, location: @cheese}
       else
         format.html {render :edit}
         format.json {render json: @cheese.errors, status: :unprocessable_entity}
       end
-    end
-  end
-
-  # DELETE /cheeses/1
-  # DELETE /cheeses/1.json
-  def destroy
-    @cheese.destroy
-    respond_to do |format|
-      format.html {redirect_to cheeses_url, notice: 'Cheese was successfully destroyed.'}
-      format.json {head :no_content}
     end
   end
 
