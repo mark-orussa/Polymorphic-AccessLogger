@@ -11,6 +11,7 @@ The magic is in app/module/access-logger.rb. By including this module in the che
 ### The details
 Include the access_logger module in the model:
 ```
+# app/models/cheese.rb
 class Cheese < ApplicationRecord
   include AccessLogger
 end
@@ -19,6 +20,7 @@ That's all that's in the model. Really! You might add validations and whatnot, o
 
 The controller actions look like this:
 ```
+# app/controllers/cheeses_controller.rb
 def create
   temp_cheese_params = cheese_params
   temp_cheese_params[:access_user] = User.first
